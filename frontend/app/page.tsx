@@ -6,10 +6,10 @@ import { useState } from 'react';
 export default function Home() {
   // 1. สร้าง State สำหรับเก็บค่า Input ทั้ง 4 ตัว
   const [formData, setFormData] = useState({
-    sepal_length: 5.1,
-    sepal_width: 3.5,
-    petal_length: 1.4,
-    petal_width: 0.2,
+    sepal_length: '5.1',
+    sepal_width: '3.5',
+    petal_length: '1.4',
+    petal_width: '0.2',
   });
 
   const [result, setResult] = useState<string | null>(null);
@@ -20,7 +20,7 @@ export default function Home() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: parseFloat(e.target.value),
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -31,12 +31,20 @@ export default function Home() {
     setResult(null);
 
     try {
+      // แปลงข้อมูลเป็นตัวเลขก่อนส่ง
+      const numericData = {
+        sepal_length: parseFloat(formData.sepal_length),
+        sepal_width: parseFloat(formData.sepal_width),
+        petal_length: parseFloat(formData.petal_length),
+        petal_width: parseFloat(formData.petal_width),
+      };
+
       const response = await fetch('http://127.0.0.1:8000/predict', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(numericData),
       });
 
       const data = await response.json();
