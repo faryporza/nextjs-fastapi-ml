@@ -1,26 +1,42 @@
-### Python
+# Iris Flower Species Predictor
 
-# วิธีรันเพื่อทดสอบ (ในเครื่อง)
+A Full-Stack Machine Learning Web Application that predicts Iris flower species based on sepal and petal measurements. This project demonstrates a monorepo structure integration between a **Next.js** frontend and a **FastAPI** backend, deployed on **Render**.
 
-1. **เทรนโมเดลก่อน:**
-เปิด Terminal เข้าไปที่ root folder (`nextjs-fastapi-ml`) แล้วรัน:
+## Tech Stack
+
+### Frontend
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **HTTP Client:** Fetch API
+
+### Backend & Machine Learning
+- **Framework:** FastAPI
+- **Server:** Uvicorn
+- **ML Library:** Scikit-learn (Random Forest Classifier)
+- **Data Processing:** Pandas, NumPy
+- **Serialization:** Joblib
+
+### Deployment
+- **Platform:** Render (Web Services)
+- **Structure:** Monorepo (Single repository for both frontend and backend)
+
+---
+
+## Project Structure
+
 ```bash
-# สร้าง model file (.pkl)
-python backend/train_model.py
-
-```
-
-
-*ถ้าสำเร็จ จะมีไฟล์ `backend/models/iris_model.pkl` โผล่ขึ้นมา*
-2. **รัน Server:**
-```bash
-# รัน FastAPI
-uvicorn backend.main:app --reload
-
-```
-
-
-*ถ้าสำเร็จ จะขึ้นว่า running on `http://127.0.0.1:8000*`
-3. **ทดสอบ:**
-เปิด Browser ไปที่ `http://127.0.0.1:8000/docs` แล้วลองเล่นเมนู `/predict` ดูครับ
-
+.
+├── backend/                # Python FastAPI Server
+│   ├── models/             # Saved ML Models (.pkl)
+│   ├── main.py             # API Entry Point
+│   ├── train_model.py      # Script to train and save model
+│   ├── data.csv            # Training dataset
+│   └── requirements.txt    # Python dependencies
+│
+├── frontend/               # Next.js Application
+│   ├── src/app/            # App Router pages
+│   ├── public/             # Static assets
+│   └── package.json        # Node.js dependencies
+│
+└── README.md
