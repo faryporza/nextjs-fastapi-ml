@@ -1,0 +1,14 @@
+{
+  "title": "เครื่องทำนายชนิดดอกไอริส",
+  "sepal_length": "ความยาวกลีบเลี้ยง",
+  "sepal_width": "ความกว้างกลีบเลี้ยง",
+  "petal_length": "ความยาวกลีบดอก",
+  "petal_width": "ความกว้างกลีบดอก",
+  "predict_button": "ทำนายชนิด",
+  "processing": "กำลังประมวลผล...",
+  "prediction_result": "ผลการทำนาย:",
+  "confidence": "ความเชื่อมั่น",
+  "error_title": "เกิดข้อผิดพลาด:",
+  "connection_error": "เชื่อมต่อ Backend ไม่ได้ (เช็คว่าเปิด Server หรือยัง?)",
+  "lang_toggle": "EN"
+}

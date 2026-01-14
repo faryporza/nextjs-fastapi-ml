@@ -1,0 +1,14 @@
+{
+  "title": "Iris Flower Predictor",
+  "sepal_length": "Sepal Length",
+  "sepal_width": "Sepal Width",
+  "petal_length": "Petal Length",
+  "petal_width": "Petal Width",
+  "predict_button": "Predict Species",
+  "processing": "Processing...",
+  "prediction_result": "Prediction Result:",
+  "confidence": "Confidence",
+  "error_title": "Error:",
+  "connection_error": "Cannot connect to Backend (Is the server running?)",
+  "lang_toggle": "TH"
+}

@@ -2,8 +2,15 @@
 'use client';
 
 import { useState } from 'react';
+import th from '../public/locales/th.json';
+import en from '../public/locales/en.json';
+
+const translations = { th, en };
 
 export default function Home() {
+  const [lang, setLang] = useState<'en' | 'th'>('en');
+  const t = translations[lang];
+
   // 1. สร้าง State สำหรับเก็บค่า Input ทั้ง 4 ตัว
   const [formData, setFormData] = useState({
     sepal_length: '5.1',
@@ -22,6 +29,10 @@ export default function Home() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const toggleLang = () => {
+    setLang(prev => (prev === 'en' ? 'th' : 'en'));
   };
 
   // 3. ฟังก์ชันส่งข้อมูลไปหา Backend (FastAPI)
@@ -56,11 +67,11 @@ export default function Home() {
         setResult(data.species);
         setConfidence(data.confidence);
       } else {
-        alert('เกิดข้อผิดพลาด: ' + JSON.stringify(data));
+        alert(`${t.error_title} ` + JSON.stringify(data));
       }
     } catch (error) {
       console.error(error);
-      alert('เชื่อมต่อ Backend ไม่ได้ (เช็คว่าเปิด Server หรือยัง?)');
+      alert(t.connection_error);
     } finally {
       setLoading(false);
     }
@@ -68,14 +79,22 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md relative">
+        <button 
+          type="button"
+          onClick={toggleLang}
+          className="absolute top-4 right-4 bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded text-sm font-bold text-gray-700 transition"
+        >
+          {t.lang_toggle}
+        </button>
+
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-         Iris Flower Predictor
+         {t.title}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Sepal Length</label>
+            <label className="block text-sm font-medium text-gray-700">{t.sepal_length}</label>
             <input
               type="number"
               step="0.1"
@@ -88,7 +107,7 @@ export default function Home() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Sepal Width</label>
+            <label className="block text-sm font-medium text-gray-700">{t.sepal_width}</label>
             <input
               type="number"
               step="0.1"
@@ -101,7 +120,7 @@ export default function Home() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Petal Length</label>
+            <label className="block text-sm font-medium text-gray-700">{t.petal_length}</label>
             <input
               type="number"
               step="0.1"
@@ -114,7 +133,7 @@ export default function Home() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Petal Width</label>
+            <label className="block text-sm font-medium text-gray-700">{t.petal_width}</label>
             <input
               type="number"
               step="0.1"
@@ -133,16 +152,16 @@ export default function Home() {
               ${loading ? 'bg-gray-400' : 'bg-blue-600 hover:bg-blue-700'} 
               transition duration-150`}
           >
-            {loading ? 'Processing...' : 'Predict Species'}
+            {loading ? t.processing : t.predict_button}
           </button>
         </form>
 
         {/* ส่วนแสดงผลลัพธ์ */}
         {result && (
           <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200 text-center animate-pulse">
-            <p className="text-sm text-green-600">Prediction Result:</p>
+            <p className="text-sm text-green-600">{t.prediction_result}</p>
             <p className="text-3xl font-bold text-green-800 my-2">{result}</p>
-            <p className="text-xs text-gray-500">Confidence: {(confidence! * 100).toFixed(2)}%</p>
+            <p className="text-xs text-gray-500">{t.confidence}: {(confidence! * 100).toFixed(2)}%</p>
           </div>
         )}
       </div>
